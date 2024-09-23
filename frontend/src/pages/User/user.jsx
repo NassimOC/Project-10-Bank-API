@@ -1,6 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Account from "../../components/Account/account";
 
 function User() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token")
+
+    if (!token) {
+      navigate("/login")
+    }
+  })
+
   return (
     <main className="main bg-dark">
     <div className="header">
