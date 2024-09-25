@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Account from "../../components/Account/account";
 
-function User() {
+const User = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
