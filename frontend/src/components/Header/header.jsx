@@ -1,12 +1,15 @@
 import logo from "../../assets/argentBankLogo.png";
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { logout } from "../../store/authSlice";
 
 
 const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token')
@@ -18,10 +21,9 @@ const Header = () => {
   }, [location])
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    sessionStorage.removeItem('token')
     setIsAuthenticated(false)
-    navigate('/')
+    dispatch(logout())
+    navigate('/login')
   };
 
   return (

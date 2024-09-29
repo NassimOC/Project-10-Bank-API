@@ -1,54 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../store/authActions";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [remember, setRemember] = useState(false)
-  const [errorForm, setErrorForm] = useState("")
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth)
 
+  const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [rememberMe, setRememberMe] = useState(false);
 
-  const formSubmit = async (e) => {
-    e.preventDefault()
-    setErrorForm("")
-    const formData = {
-      email,
-      password
-    }
-
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json",
-        },
-        body: JSON.stringify(formData)
-      })
-      if (!response.ok) {
-        const data = await response.json()
-        console.log(data.message)
-        setErrorForm(data.message)
-        return
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userInfo = { email, password, rememberMe}
+    dispatch(loginUser(userInfo)).then((action) => {
+      if (action.meta.requestStatus === 'fulfilled') {
+        navigate('/user')
       }
-      
-      const data = await response.json()
-
-      if (response.ok && !remember) {
-        sessionStorage.setItem("token", data.body.token)
-      } else if (response.ok && remember) {
-        localStorage.setItem("token", data.body.token)
-      }
-
-      navigate("/user")
-
-    } catch (error) {
-      console.log(error)
-    }
+    })
   }
 
+  useEffect(() => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    
+    if (token) {
+      navigate('/user')
+    }
+  }, [navigate])
+
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
         <label htmlFor="email">Username</label>
         <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
@@ -58,11 +41,11 @@ const LoginForm = () => {
         <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       </div>
       <div className="input-remember">
-        <input type="checkbox" id="remember-me" onChange={(e) => setRemember(!remember)}/>
+        <input type="checkbox" id="remember-me" onChange={(e) => setRememberMe(!rememberMe)}/>
         <label htmlFor="remember-me">Remember me</label>
       </div>
       <button className="sign-in-button">Sign In</button>
-      {errorForm && <p className="sign-in-error">{errorForm}</p>}
+      {error && <p className="sign-in-error">{error}</p>}
     </form>
   )
 }
