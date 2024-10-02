@@ -4,6 +4,7 @@ import { loginUser, userProfile } from './authActions';
 const initialState = {
   userInfo: null,
   firstName: null,
+  lastName: null,
   token: null,
   loading: false,
   error: ""
@@ -49,6 +50,7 @@ const authSlice = createSlice({
           state.loading = false;
           state.userInfo = action.payload;
           state.firstName = action.payload.firstName
+          state.lastName = action.payload.lastName
       });
       builder.addCase(userProfile.rejected, (state, action) => {
           state.loading = false;
@@ -58,4 +60,5 @@ const authSlice = createSlice({
 });
 
 export const { logout } = authSlice.actions;
+export const selectAuth = (state) => state.auth;
 export default authSlice.reducer;

@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { userProfile } from "../../store/authActions";
 import Account from "../../components/Account/account";
 import { useSelector } from "react-redux";
+import { selectAuth } from "../../store/authSlice";
 
 const User = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {firstName} = useSelector(state => state.firstName)
+  const {firstName, lastName} = useSelector(selectAuth)
 
   useEffect(() => {
     const token = localStorage.getItem("token") || sessionStorage.getItem("token")
@@ -18,12 +19,13 @@ const User = () => {
     }
 
     dispatch(userProfile(token))
-  }, [])
+  }, [dispatch, navigate])
 
   return (
     <main className="main bg-dark">
     <div className="header">
-      <h1>Welcome back<br />{}</h1>
+      <h1>Welcome back <br />{firstName && firstName} {lastName && lastName}</h1>
+
       <button className="edit-button">Edit Name</button>
     </div>
     <h2 className="sr-only">Accounts</h2>
