@@ -178,6 +178,7 @@ body {
   width: 300px;
   margin: 0 auto;
   margin-top: 3rem;
+  margin-bottom: 3rem;
   padding: 2rem;
 }
 
@@ -212,6 +213,43 @@ body {
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+
+.edit-input-wrapper {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.edit-input-wrapper label {
+  font-weight: bold;
+}
+
+.edit-input-wrapper input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.edit-btn-wrapper {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit-btn-wrapper button {
+  width: 40%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
 }
 
 .footer {
