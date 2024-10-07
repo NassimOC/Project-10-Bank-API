@@ -1,4 +1,4 @@
-import LoginForm from "../../containers/LoginForm/LoginForm";
+import LoginForm from '../../containers/LoginForm/LoginForm';
 
 function Login() {
   return (
@@ -9,7 +9,7 @@ function Login() {
         <LoginForm />
       </section>
     </main>
-  )
+  );
 }
 
-export default Login
+export default Login;

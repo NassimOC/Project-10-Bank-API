@@ -1,4 +1,4 @@
-function Account({title, amount, description}) {
+function Account({ title, amount, description }) {
   return (
     <section className="account">
       <div className="account-content-wrapper">
@@ -10,7 +10,7 @@ function Account({title, amount, description}) {
         <button className="transaction-button">View transactions</button>
       </div>
     </section>
-  )
+  );
 }
 
-export default Account
+export default Account;

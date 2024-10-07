@@ -13,7 +13,6 @@ import Home from './pages/Home/home';
 import Login from './pages/Login/login';
 import User from './pages/User/user';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

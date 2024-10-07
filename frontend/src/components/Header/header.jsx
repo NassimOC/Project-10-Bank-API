@@ -1,9 +1,8 @@
-import logo from "../../assets/argentBankLogo.png";
+import logo from '../../assets/argentBankLogo.png';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { logout } from "../../store/authSlice";
-
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { logout } from '../../store/authSlice';
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,18 +11,19 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
-      setIsAuthenticated(true)
+      setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(false)
+      setIsAuthenticated(false);
     }
-  }, [location])
+  }, [location]);
 
   const handleLogout = () => {
-    setIsAuthenticated(false)
-    dispatch(logout())
-    navigate('/login')
+    setIsAuthenticated(false);
+    dispatch(logout());
+    navigate('/login');
   };
 
   return (
@@ -37,22 +37,20 @@ const Header = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {
-          isAuthenticated ? (
-            <NavLink className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-user-circle"></i>
-              Sign Out
-            </NavLink>
-          ) : (
-            <NavLink className="main-nav-item" to="/login">
-              <i className="fa fa-user-circle"></i>
-              Sign In
-            </NavLink>
-          )
-        }
+        {isAuthenticated ? (
+          <NavLink className="main-nav-item" to="/" onClick={handleLogout}>
+            <i className="fa fa-user-circle"></i>
+            Sign Out
+          </NavLink>
+        ) : (
+          <NavLink className="main-nav-item" to="/login">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </NavLink>
+        )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
